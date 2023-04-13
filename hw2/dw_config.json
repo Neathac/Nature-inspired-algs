@@ -1,0 +1,29 @@
+{
+    "Records": [
+        {
+            "keywords": "pancreatic tissue microscopic",
+            "limit": 50,
+            "print_urls": true
+        },
+        {
+            "keywords": "reticulum microscopic",
+            "limit": 50,
+            "print_urls": true
+        },
+        {
+            "keywords": "testis microscopic",
+            "limit": 50,
+            "print_urls": true
+        },
+        {
+            "keywords": "esophagus microscopic",
+            "limit": 50,
+            "print_urls": true
+        },
+        {
+            "keywords": "Uretra microscopic",
+            "limit": 50,
+            "print_urls": true
+        }
+    ]
+}
