@@ -45,6 +45,15 @@
 \begin{ukol}{Dataset}
 \begin{itemize}
 	\item Dataset byl shromážděn pomocí automatického Web Crawlera, který stáhnul právě 70 výsledků obrázkového vyhledávání prohlížeče Bing - Důvod použití Bing je prostý. Google API pro podobnou akci je buď deprecated, nebo rozbité. K tomuto účelu jsme použili Python package \textbf{bing\_image\_downloader}. Takto získané obrázky jsme následně byli nuceni manuálně projít a odstranit duplicitní či nerelevantní obrázky. Vyhledávač přeci jen negarantuje pouze relevantní výsledky. Tímto způsobem jsme získali celkem 42 různých fotek všech 5 kategorií - Kokain, extáze, crack, methamphetamine, a marihuana.
+	\item \begin{center}
+		\begin{tabular}{ c c c c c }
+		 \includegraphics[width=.18\linewidth]{./dataset/cocaine/Image_1} & \includegraphics[width=.18\linewidth]{./dataset/cocaine/Image_2} & \includegraphics[width=.18\linewidth]{./dataset/cocaine/Image_3} & \includegraphics[width=.18\linewidth]{./dataset/cocaine/Image_4} & \includegraphics[width=.18\linewidth]{./dataset/cocaine/Image_5} \\ 
+		 \includegraphics[width=.18\linewidth]{./dataset/crack drug/Image_1} & \includegraphics[width=.18\linewidth]{./dataset/crack drug/Image_2} & \includegraphics[width=.18\linewidth]{./dataset/crack drug/Image_3} & \includegraphics[width=.2\linewidth]{./dataset/crack drug/Image_7} & \includegraphics[width=.2\linewidth]{./dataset/crack drug/Image_8} \\  
+		\includegraphics[width=.18\linewidth]{./dataset/ecstasy drug/Image_1} & \includegraphics[width=.18\linewidth]{./dataset/ecstasy drug/Image_4} & \includegraphics[width=.18\linewidth]{./dataset/ecstasy drug/Image_3} & \includegraphics[width=.18\linewidth]{./dataset/ecstasy drug/Image_7} & \includegraphics[width=.18\linewidth]{./dataset/ecstasy drug/Image_6} \\  
+		\includegraphics[width=.18\linewidth]{./dataset/methamphetamine/Image_1} & \includegraphics[width=.18\linewidth]{./dataset/methamphetamine/Image_4} & \includegraphics[width=.18\linewidth]{./dataset/methamphetamine/Image_3} & \includegraphics[width=.18\linewidth]{./dataset/methamphetamine/Image_7} & \includegraphics[width=.18\linewidth]{./dataset/methamphetamine/Image_6} \\  
+		\includegraphics[width=.18\linewidth]{./dataset/weed/Image_1} & \includegraphics[width=.18\linewidth]{./dataset/weed/Image_4} & \includegraphics[width=.18\linewidth]{./dataset/weed/Image_5} & \includegraphics[width=.18\linewidth]{./dataset/weed/Image_7} & \includegraphics[width=.18\linewidth]{./dataset/weed/Image_6} \\  
+		\end{tabular}
+		\end{center}
 	\item Typické aplikace počítačového vidění a klasifikace obrázků vidíme hlavně v dopravě a logistice, častěji a častěji se ale používá i v oblasti bezpečnosti. Klasifikátor schopný rozeznat různé typy drog na základě tvarů, barev, nebo i kontextu v jakém jsou často viděny by tak mohl mít aplikace při detekci substancí buďto u kamer na veřejných místech, nebo u bezpečnostních checkpointů jako třeba na letištích. Existuje ale jedna snad nedostatečně využitá aplikace takového klasifikátoru: Harm reduction. Vznikl-li by veřejně dostupný nástroj - například formou mobilní aplikace - schopný rychlého rozeznání různých typů drog, poskytnutí rad k bezpečnému užití a varování před možnými nežádoucími účinky a nebezpečnými dávkami či kombinacemi, nebo dokonce schopný identifikace možných nečistot, uživatelé nelegálních substancí by získali extra vrstvu ochrany před potenciálním nebezpečím.
 	\item Dataset obsahuje právě 5 populárních drog. Tyto drogy jsou od sebe s vyjímkou cracku a kokainu poměrně snadno rozlišitelné (Crack a kokain jsou vlastně stejnou drogou v různých formách - Crack je zpracovaný do formy míněné ke kouření, kdežto kokain je míněný k rozpuštění či přímé inhalaci). Pracujeme tedy s obrázky Kokainu, Cracku, Extáze, Marihuany, a Methamphetaminu, neboli populárního českého "perníku".
 	\item Ke každé třídě máme 42 obrázků, 35 z těchto obrázků bude použito ke trénování, 7 k validaci.
@@ -62,6 +71,7 @@
 	\item Připojené vrstvy jsou \textbf{MaxPooling2D} k redukci velikosti výstupu, vrstvou \textbf{Flatten} zredukujeme jeho dimenzi, a následně použijeme 2* vrstvu \textbf{Dense} abychom získali požadovaný počet outputů.
 	\item Model konečně využívá ztrátovou funkci \textbf{SparseCategoricalCrossentropy} neboť chceme výstup jako vektor pravděpodobností každé kategorie, a optimizer \textbf{RMSprop}.
 	\item Je nutno podotknout, že jsme zamkli trénování modelu ResNet50, ale dovolili trénování námi přidaných vrstev. Také podotkneme, že zmíněné vrstvy jsou spojeny v rámci Sekvenčního modelu.
+	\item \textbf{Pro porovnání} jsme také vyzkoušeli a změřili \textbf{Neupravený ResNet50} a \textbf{jednoduchý model ze cvičení}. ResNet50 jsme tentokrát použili i s output layerem a povolili trénování celé sítě, a zkompilovali za použití stejných metrik a optimalizací jako předchozí upravený model. Ze cvičení jsme převzali jednoduchou konvoluční síť pro porovnání, opět za použití stejných metrik.
 \end{itemize}
 
 \end{ukol}
@@ -71,8 +81,10 @@
 	\item ResNet50 samotný byl sice ozkoušen, nevedl ovšem k dobrým výsledkům neboť drogy klasifikovat neumí, proto prezentujeme výsledky jenom pro naši upravenou verzi.
 	\item \begin{center}
 		\begin{tabular}{ c c c }
-		 Model & Trénovací accuracy & Testovací accuracy \\ 
-		 Upravený ResNet50 & 0.9762 & 0.8095  
+		Model & Trénovací accuracy & Testovací accuracy \\ 
+		Upravený ResNet50 & 0.9762 & 0.8095  \\
+		Neupravený ResNet50 & 0.9464 & 0.6429 \\
+		Jednoduchý model & 0.6071 & 0.2143
 		\end{tabular}
 		\end{center}
 	\item \includegraphics{accuracy}
