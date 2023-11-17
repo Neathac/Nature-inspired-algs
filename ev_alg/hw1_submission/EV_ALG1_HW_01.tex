@@ -1,0 +1,97 @@
+\documentclass[a4paper]{article}
+ 
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb,bbm,wasysym}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{tabto}
+\usepackage{amsmath}
+
+\graphicspath{ {./} }
+
+\DeclareMathOperator{\Ex}{\mathbb{E}} % střední hodnota X pomocí $\Ex X$
+
+\newcommand{\N}{\mathbb{N}} % přirozená čísla
+\newcommand{\Z}{\mathbb{Z}} % celá čísla
+\newcommand{\R}{\mathbb{R}} % reálná čísla
+
+\renewcommand{\qed}{\hfill\blacksquare} % Quod Est Demonstratum (QED) 
+
+% tohle je pro prostředí úkolů
+\newenvironment{ukol}[2][]{\begin{trivlist} 
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2}]}{\end{trivlist}}
+
+\linespread{1.15}
+ 
+\begin{document}
+ 
+% --------------------------------------------------------------
+%                         Začni ZDE
+% --------------------------------------------------------------
+ 
+\title{ Evoluční algoritmy 1 \\ 1. domácí úkol
+        } 
+\author{Martin Gráf}
+\date{16.10.2023}
+
+\maketitle
+
+Úkolem bylo ozkoušet hrstku genetických operátorů a měnit parametry pro prostý genetický algoritmus, OneMax problém, a problém střídajících se nul a jedniček v jedinci.
+
+\begin{ukol}{OneMAX}
+
+Pro OneMAX problém jsme zkrátka ozkoušeli algoritmus ze cvičení a záměnu za turnajovou selekci, která výrazně urychlila konvergenci.
+
+
+	\begin{center}
+		\begin{tabular}{ c c }
+		 \includegraphics[width=.5\linewidth]{./default} & \includegraphics[width=.5\linewidth]{./tournament} \\ 
+		\end{tabular}
+	\end{center}
+
+\end{ukol}
+
+\begin{ukol}{Střídavé hodnoty}
+
+Pro modré grafy jsme využili parametry ze cvičení, konkrétně tedy :
+
+\begin{itemize}
+	\item POP\_SIZE = 100
+	\item IND\_LEN = 25
+	\item CX\_PROB = 0.8
+	\item MUT\_PROB = 0.05
+	\item MUT\_FLIP\_PROB = 0.1
+	\item N = 1
+\end{itemize}
+
+Červené grafy pak mají parametry:
+
+\begin{itemize}
+	\item POP\_SIZE = 100
+	\item IND\_LEN = 25
+	\item CX\_PROB = 0.7
+	\item MUT\_PROB = 0.1
+	\item MUT\_FLIP\_PROB = 0.1
+	\item N = 2
+\end{itemize}
+
+Toto nejsou jediné ozkoušené parametry, zejména jsme experimentovali s každým parametrem zvlášť oproti referenčním hodnotám ze cvičení. Obecně snižování pravděpodobnosti křížení, zvyšování mutační pravděpodobnosti, nebo navyšování N pro křížení destabilizuje algoritmus a vykazuje tak déletrvající variabilitu hodnot. Mimo genetické operátory ze cvičení jsme přidali turnajovou selekci, křížení prohazující N částí jedince, nebo mutaci prohazující dvě části jednoho jedince.
+
+
+\begin{center}
+	\begin{tabular}{ c c }
+	\includegraphics[width=.5\linewidth]{./AltDefault} & \includegraphics[width=.5\linewidth]{./ADefault} \\ 
+	\includegraphics[width=.5\linewidth]{./AltS} & \includegraphics[width=.5\linewidth]{./AS} \\ 
+	\includegraphics[width=.5\linewidth]{./AltN} & \includegraphics[width=.5\linewidth]{./AN} \\ 
+	\includegraphics[width=.5\linewidth]{./AltTNS} & \includegraphics[width=.5\linewidth]{./ATNS} \\ 
+	\end{tabular}
+\end{center}
+
+
+\end{ukol}
+
+\end{document}

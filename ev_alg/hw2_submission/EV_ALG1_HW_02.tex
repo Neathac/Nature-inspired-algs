@@ -1,0 +1,78 @@
+\documentclass[a4paper]{article}
+ 
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb,bbm,wasysym}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{tabto}
+\usepackage{amsmath}
+
+\graphicspath{ {./} }
+
+\DeclareMathOperator{\Ex}{\mathbb{E}} % střední hodnota X pomocí $\Ex X$
+
+\newcommand{\N}{\mathbb{N}} % přirozená čísla
+\newcommand{\Z}{\mathbb{Z}} % celá čísla
+\newcommand{\R}{\mathbb{R}} % reálná čísla
+
+\renewcommand{\qed}{\hfill\blacksquare} % Quod Est Demonstratum (QED) 
+
+% tohle je pro prostředí úkolů
+\newenvironment{ukol}[2][]{\begin{trivlist} 
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2}]}{\end{trivlist}}
+
+\linespread{1.15}
+ 
+\begin{document}
+ 
+% --------------------------------------------------------------
+%                         Začni ZDE
+% --------------------------------------------------------------
+ 
+\title{ Evoluční algoritmy 1 \\ 2. domácí úkol
+        } 
+\author{Martin Gráf}
+\date{30.10.2023}
+
+\maketitle
+
+Úkolem bylo ozkoušet hrstku genetických operátorů a měnit parametry pro prostý genetický algoritmus řešící Set partition problem.
+
+\begin{ukol}{Jednoduché}
+
+Počet ozkoušených variací se vymknul kontrole poměrně rychle. Oproti základu jsme zkoušeli turnajovou selekci, n-bodový crossover (Ne pro běh na bonus body),
+fitness jako průměrný rozdíl, nebo fitness jako součet rozdílů všech přihrádek od všech ostatních. Dále jsme experimentovali s počtem generací, jedinců, 
+a pravděpodobnostmi. Prakticky všechny ze zmíněných pokusů zlepšily výkon, ne všechny jsme ale z časových důvodů zaznamenali.
+
+První graf znázorňuje turnajovou selekci, druhý turnajovou selekci s fitness jako průměrným rozdílem vah v jedinci, třetí nejlepší dosažený výsledek.
+
+Nejlepších výsledků jsme dosáhli použitím turnajové selekce, fitness jako suma všech váhových rozdílů (Každá přihrádka s každou), pravděpodobností mutace 0.2,
+pravděpodobností prohození přihrádky v rámci mutace 0.015, crossover pravděpodobností 0.85, 8500 jedinců, 1700 generací, a 20-jedincovým elitismem. Nejmenší 
+nalezený rozdíl byl 12.
+
+
+\begin{center}
+	\begin{tabular}{ c c c }
+		\includegraphics[width=.33\linewidth]{./tournament} & \includegraphics[width=.33\linewidth]{./average} & \includegraphics[width=.33\linewidth]{./default}\\ 
+	\end{tabular}
+\end{center}
+\includegraphics[width=.7\linewidth]{./all}
+
+\end{ukol}
+
+\begin{ukol}{Informovaná mutace}
+
+	Pokusili jsme se implementovat 2 různé informované mutace. První, která se neprokázala jako efektivní s danou pravděpodobností vybere nejtěžší a nejlehčí 
+	(Nebo podle pravděpodbnosti vybere náhodné přihrádky) a z první vybrané přihrádky přesune nejlehčí objekt do nejtěžší. Nevůle přesunout těžší předměty
+	se prokázala jako horší než náhoda. Druhá informovaná mutace se před náhodnou změnou bitu podívá, zdali se tím fitness jedince zlepšila. Pokud ano, mutaci 
+	nechá, jinak ji zahodí. Dále jsme zkoušeli variantu tohoto přístupu kde jsme zahazovali i nezlepšující křížení. Kupodivu nakonec žádná z informovaných
+	mutací nepřerčila neinformované. To ale může být i tím, že pro neinformované operátory jsme dlouho nalézali co nejlepší parametry, kdežto informované
+	jsme obdobně rigorózně netestovali.
+	\includegraphics[width=.7\linewidth]{./informed}
+\end{ukol}
+
+\end{document}
