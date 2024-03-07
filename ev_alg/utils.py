@@ -176,8 +176,8 @@ class Log:
             with open(self.olog_name, 'a') as f:
                 f.write(f'{f_evals} {os.max} {os.mean} {os.min}\n')
         
-        if self.gen_num % self.print_frequency == 0:
-            print(f'{f_evals:8} {os.min:8.2f} {os.mean:8.2f} {os.max:8.2f}')
+        #if self.gen_num % self.print_frequency == 0:
+        #    print(f'{f_evals:8} {os.min:8.2f} {os.mean:8.2f} {os.max:8.2f}')
 
     def write_files(self):
         with open(self.flog_name, 'a') as f:

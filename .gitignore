@@ -137,3 +137,7 @@ dmypy.json
 *continuous/
 
 *partition/
+
+*multi/
+
+*.pdf

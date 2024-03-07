@@ -1,0 +1,71 @@
+\documentclass[a4paper]{article}
+ 
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb,bbm,wasysym}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{tabto}
+\usepackage{amsmath}
+
+\graphicspath{ {./} }
+
+\DeclareMathOperator{\Ex}{\mathbb{E}} % střední hodnota X pomocí $\Ex X$
+
+\newcommand{\N}{\mathbb{N}} % přirozená čísla
+\newcommand{\Z}{\mathbb{Z}} % celá čísla
+\newcommand{\R}{\mathbb{R}} % reálná čísla
+
+\renewcommand{\qed}{\hfill\blacksquare} % Quod Est Demonstratum (QED) 
+
+% tohle je pro prostředí úkolů
+\newenvironment{ukol}[3][]{\begin{trivlist} 
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2}]}{\end{trivlist}}
+
+\linespread{1.15}
+ 
+\begin{document}
+ 
+% --------------------------------------------------------------
+%                         Začni ZDE
+% --------------------------------------------------------------
+ 
+\title{ Evoluční algoritmy 1 \\ 4. domácí úkol
+        } 
+\author{Martin Gráf}
+\date{9.12.2023}
+
+\maketitle
+
+Úkolem bylo implementovat různbé postupy řešení optimalizace dle několika metrik.
+
+\begin{ukol}{Experimenty}
+
+V jednoduchosti je síla. Ozkoušeli jsme různé parametry i kombinace operátorů, ale jako zdaleka nejúspěšnější se ukázala vážená mutace. Výchozí parametry bylo překvapivě těžké překonat, a postupy jako diferenciální mutace nebo adaptivní změna velikosti kroků zkrátka nedokázaly držet krok. Důvodem bude pravděpodobně odlišnost různých metrik. Konvergence jedince k řešení všech cílů zkrátka není tak "lineární" jako u jediného cíle, což nejspíš uvězní algoritmus v lokálních optimech (viz jejich křivky) při zmenšujících-se krocích nebo rozdílech jedinců. 
+
+Porovnání druhotných kritérií už není tak jednoznačné. Pro každou funkci se jako nejlepší ukázal jiný přístup, i zde se ale naše vážená mutace projevila jako lepší.
+
+\begin{center}
+	\begin{tabular}{ c }
+		\includegraphics[width=1\linewidth]{./ZDT1}
+	\end{tabular}
+	\begin{tabular}{ c }
+		\includegraphics[width=1\linewidth]{./ZDT2}
+	\end{tabular} 
+	\begin{tabular}{ c }
+		\includegraphics[width=1\linewidth]{./ZDT3}
+	\end{tabular} 
+	\begin{tabular}{ c }
+		\includegraphics[width=1\linewidth]{./ZDT4}
+	\end{tabular}
+	\begin{tabular}{ c }
+		\includegraphics[width=1\linewidth]{./ZDT6}
+	\end{tabular}
+\end{center}
+
+\end{ukol}
+
+\end{document}
